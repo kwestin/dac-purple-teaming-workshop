@@ -12,7 +12,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 - [What are Helpers?](https://docs.panther.com/writing-detections/globals?q=helpers)
 - [What is Deep_Get?](https://docs.panther.com/writing-detections/globals#deep_get)
 
-**Lab 1: Exercise 1 Steps**
+**L1: Exercise 1**
 1. In the Panther Console - Navigate to Build > Detections > Create New
 2. Select "Rule" and give it a unique name "X's Failed Login Detection" (Use your own name or initials)
 3. Select the log source "Okta System Log" and set Severity to "Medium"
@@ -59,20 +59,23 @@ def rule(event):
 </details>
 
 
+**L1: Exercise 2**
 
 
 
 
 
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
 
 ## NOTES
 
-## Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
+## L1: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
 
 **Terms we'll reference**
