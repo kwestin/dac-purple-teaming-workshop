@@ -31,7 +31,10 @@ def rule(event):
 
 ```
 
-**Sample Okta Event Failed Login**
+
+<details>
+  <summary>Click To View: Sample Okta Event Failed Login</summary>
+  
 ```
 {
 	"actor": {
@@ -53,6 +56,12 @@ def rule(event):
 	"p_parse_time": "2021-06-04 10:02:33.650807"
 }
 ```
+  ```
+</details>
+
+
+
+
 
 
 
