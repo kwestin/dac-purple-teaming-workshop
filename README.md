@@ -33,7 +33,7 @@ def rule(event):
 
 
 <details>
-  <summary>Click To View: Sample Okta Event Failed Login</summary>
+	<summary>Click To View: Sample Okta Event Failed Login</summary>
   
 ```
 {
