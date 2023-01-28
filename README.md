@@ -62,9 +62,13 @@ def rule(event):
 ![Threshold and depduplication](/img/depuplication.png)
 
 **L1: Exercise 2: Onboarding Okta Data**
-1. [Sign up for a free Okta developer](https://developer.okta.com/signup/) account if you have not done so.
-
-
+1. [Sign up for a free Okta Developer](https://developer.okta.com/signup/) account if you have not done so.
+2. In your Okta Developer acccount go to Security > API and click on the "Tokens" tab
+![Okta Token Page](/img/okta1.png)
+3. Click "Create Token" and give it a unique name
+![Okta Token Page](/img/okta2.png)
+4. Copy the new token and past it somehwere safe as backup
+![Copy Token](/img/okta3.png)
 
 
 ## Lab 2
