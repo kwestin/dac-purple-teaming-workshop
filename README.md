@@ -61,14 +61,20 @@ def rule(event):
 10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
 
-**L1: Exercise 2**
+**L1: Exercise 2: Onboarding Okta Data**
+1. [Sign up for a free Okta developer](https://developer.okta.com/signup/) account if you have not done so.
+
+
+
+
+## Lab 2
 In this exercise we will write another detection, this one will be to detect when a user successfully logs in as an administrator. 
 
 We will start with the log data for this event
 
 <details>
 	<summary>Click To View: Sample Okta Event For Admin Console Access</summary>
-	
+
 ```
 {
 	"actor": {
