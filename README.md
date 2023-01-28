@@ -68,6 +68,7 @@ We will start with the log data for this event
 
 <details>
 	<summary>Click To View: Sample Okta Event For Admin Console Access</summary>
+	
 ```
 {
 	"actor": {
