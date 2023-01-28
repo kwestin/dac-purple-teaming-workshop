@@ -38,9 +38,9 @@ def rule(event):
 ```
 {
 	"actor": {
-		"alternateId": "admin",
-		"displayName": "unknown",
-		"id": "unknown",
+		"alternateId": "lemmy@heavymetals.io",
+		"displayName": "Lemmy Kilmister",
+		"id": "0u7gkf3fd41J4kku5d7",
 		"type": "User"
 	},
 	"client": {
@@ -48,12 +48,12 @@ def rule(event):
 	},
 	"eventType": "user.session.start",
 	"outcome": {
-		"reason": "VERIFICATION_ERROR",
+		"reason": "INVALID_CREDENTIALS",
 		"result": "FAILURE"
 	},
-	"p_event_time": "2021-06-04 09:59:53.650807",
+	"p_event_time": "2023-01-23 09:59:53.650807",
 	"p_log_type": "Okta.SystemLog",
-	"p_parse_time": "2021-06-04 10:02:33.650807"
+	"p_parse_time": "2023-01:23 10:02:33.650807"
 }
 ```
 </details>
@@ -61,7 +61,7 @@ def rule(event):
 
 **L1: Exercise 2**
 
-
+1. 
 
 
 
