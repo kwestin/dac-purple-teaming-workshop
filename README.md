@@ -69,7 +69,10 @@ def rule(event):
 ![Okta Token Page](/img/okta2.png)
 4. Copy the new token and past it somehwere safe as backup
 ![Copy Token](/img/okta3.png)
-
+5. Go to your Panther free trial instance and navigate to Configure > Log Sources and search for "Okta"
+![Panther Log Source Configure](/img/okta5.png)
+6. Enter a name for the log source, your developer acccount subdomain and the API key we just created and click "Setup"
+![Panther Log Source Configure](/img/okta6.png)
 
 ## Lab 2
 In this exercise we will write another detection, this one will be to detect when a user successfully logs in as an administrator. 
