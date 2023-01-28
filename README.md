@@ -58,6 +58,8 @@ def rule(event):
 ```
 </details>
 
+10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
+![Threshold and depduplication](/img/depuplication.png)
 
 **L1: Exercise 2**
 
