@@ -62,6 +62,7 @@ def rule(event):
 ![Threshold and depduplication](/img/depuplication.png)
 
 **L1: Exercise 2**
+The goal of this exercise is to build on our previous detection, but we want to trigger a "HIGH" severity alert if we detect 5 failed logins, followed by sucessful login to the admin console. To look across more event types as well as a larger window of time we will levrage a scheduled query. 
 
 1. 
 
