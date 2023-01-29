@@ -107,7 +107,12 @@ We will start with the log data for this event
 
 1. 
 
+## Lab 3 - Red Team Tools & API Key 
 
+
+**L3: Exercise 1: Installing Dorothy (optional)**
+Requirements: Python 3.7+, pip3, virtualenv
+1. You can install [Dorothy from source code](https://github.com/elastic/dorothy) or using pip3 by runnning ```pip3 install dorothy```
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
