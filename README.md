@@ -12,9 +12,8 @@ Using the rule function and other pre-existing helper functions, creating a dete
 - [What are Helpers?](https://docs.panther.com/writing-detections/globals?q=helpers)
 - [What is Deep_Get?](https://docs.panther.com/writing-detections/globals#deep_get)
 
-** Data Sample **
 <details>
-	<summary>Click To View: Sample Okta Event Failed Login</summary>
+	<summary>Click To View: Sample Okta Event - Failed Login</summary>
   
 ```
 {
@@ -44,7 +43,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 2. Select "Rule" and give it a unique name "X's Failed Login Detection" (Use your own name or initials)
 3. Select the log source "Okta System Log" and set Severity to "Medium"
 4. Select Functions and Tests in the tab
-5. Create a Unit Test and copy and paste the sample event from Okta below. We will use this to create our detection. 
+5. Create a Unit Test and copy and paste the sample event from Okta above. We will use this to create our detection. 
 6. Import deep_get function from the panther_base_helpers library ```from panther_base_helpers import deep_get```
 7. Return the event for a login ```return event.get("eventType") == 'user.session.start'```
 8. Return the event for a failed login result using the deep_get function ```deep_get(event, 'outcome', 'result') == "FAILURE"```
