@@ -73,6 +73,7 @@ def rule(event):
 ![Panther Log Source Configure](/img/okta5.png)
 6. Enter a name for the log source, your developer acccount subdomain and the API key we just created and click "Setup"
 ![Panther Log Source Configure](/img/okta6.png)
+7. Congratulatsions you just onboarded your first data source! 
 
 ## Lab 2
 In this exercise we will write another detection, this one will be to detect when a user successfully logs in as an administrator. 
