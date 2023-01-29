@@ -111,9 +111,12 @@ We will start with the log data for this event
 
 
 **L3: Exercise 1: Installing Dorothy (optional)**
-Requirements: Python 3.7+, pip3, virtualenv
-1. You can install [Dorothy from source code](https://github.com/elastic/dorothy) or using pip3 by runnning ```pip3 install dorothy``` 
+Requirements: Python 3.7+, pip3 
+1. Installing Dorohty
 
+* Option 1: Using pip3 by runnning ```pip3 install dorothy``` 
+* Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy) 
+* Option 3:
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
