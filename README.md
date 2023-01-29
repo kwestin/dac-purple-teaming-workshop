@@ -40,7 +40,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 
 **L1: Exercise 1**
 1. In the Panther Console - Navigate to Build > Detections > Create New
-2. Select "Rule" and give it a unique name "[YOUR NAME]'s Failed Login Detection" (Use your own name or initials)
+2. Select "Rule" and give it a unique name "[YOUR NAME]'s Failed Login Detection" 
 3. Select the log source "Okta System Log" and set Severity to "Medium"
 4. Select Functions and Tests in the tab
 5. Create a Unit Test and copy and paste the sample event from Okta above. We will use this to create our detection. 
