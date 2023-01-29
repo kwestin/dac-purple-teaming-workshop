@@ -12,26 +12,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 - [What are Helpers?](https://docs.panther.com/writing-detections/globals?q=helpers)
 - [What is Deep_Get?](https://docs.panther.com/writing-detections/globals#deep_get)
 
-**L1: Exercise 1**
-1. In the Panther Console - Navigate to Build > Detections > Create New
-2. Select "Rule" and give it a unique name "X's Failed Login Detection" (Use your own name or initials)
-3. Select the log source "Okta System Log" and set Severity to "Medium"
-4. Select Functions and Tests in the tab
-5. Create a Unit Test and copy and paste the sample event from Okta below. We will use this to create our detection. 
-6. Import deep_get function from the panther_base_helpers library ```from panther_base_helpers import deep_get```
-7. Return the event for a login ```return event.get("eventType") == 'user.session.start'```
-8. Return the event for a failed login result using the deep_get function ```deep_get(event, 'outcome', 'result') == "FAILURE"```
-9. Final detection should look something like this. 
-
-```
-from panther_base_helpers import deep_get
-
-def rule(event):
-    return event.get("eventType") == 'user.session.start' and deep_get(event, 'outcome', 'result') == "FAILURE"
-
-```
-
-
+** Data Sample **
 <details>
 	<summary>Click To View: Sample Okta Event Failed Login</summary>
   
@@ -57,6 +38,26 @@ def rule(event):
 }
 ```
 </details>
+
+**L1: Exercise 1**
+1. In the Panther Console - Navigate to Build > Detections > Create New
+2. Select "Rule" and give it a unique name "X's Failed Login Detection" (Use your own name or initials)
+3. Select the log source "Okta System Log" and set Severity to "Medium"
+4. Select Functions and Tests in the tab
+5. Create a Unit Test and copy and paste the sample event from Okta below. We will use this to create our detection. 
+6. Import deep_get function from the panther_base_helpers library ```from panther_base_helpers import deep_get```
+7. Return the event for a login ```return event.get("eventType") == 'user.session.start'```
+8. Return the event for a failed login result using the deep_get function ```deep_get(event, 'outcome', 'result') == "FAILURE"```
+9. Final detection should look something like this. 
+
+```
+from panther_base_helpers import deep_get
+
+def rule(event):
+    return event.get("eventType") == 'user.session.start' and deep_get(event, 'outcome', 'result') == "FAILURE"
+
+```
+
 
 10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
