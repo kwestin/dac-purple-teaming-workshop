@@ -18,20 +18,6 @@ Using the rule function and other pre-existing helper functions, creating a dete
 3. Select the log source "Okta System Log" and set Severity to "Medium"
 4. Select Functions and Tests in the tab
 5. Create a Unit Test and copy and paste the sample event from Okta below. We will use this to create our detection. 
-6. Import deep_get function from the panther_base_helpers library ```from panther_base_helpers import deep_get```
-7. Return the event for a login ```return event.get("eventType") == 'user.session.start'```
-8. Return the event for a failed login result using the deep_get function ```deep_get(event, 'outcome', 'result') == "FAILURE"```
-9. Final detection should look something like this. 
-
-```
-from panther_base_helpers import deep_get
-
-def rule(event):
-    return event.get("eventType") == 'user.session.start' and deep_get(event, 'outcome', 'result') == "FAILURE"
-
-```
-
-
 <details>
 	<summary>Click To View: Sample Okta Event Failed Login</summary>
   
@@ -57,6 +43,19 @@ def rule(event):
 }
 ```
 </details>
+6. Import deep_get function from the panther_base_helpers library ```from panther_base_helpers import deep_get```
+7. Return the event for a login ```return event.get("eventType") == 'user.session.start'```
+8. Return the event for a failed login result using the deep_get function ```deep_get(event, 'outcome', 'result') == "FAILURE"```
+9. Final detection should look something like this. 
+
+```
+from panther_base_helpers import deep_get
+
+def rule(event):
+    return event.get("eventType") == 'user.session.start' and deep_get(event, 'outcome', 'result') == "FAILURE"
+
+```
+
 
 10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
@@ -74,6 +73,7 @@ def rule(event):
 6. Enter a name for the log source, your developer acccount subdomain and the API key we just created and click "Setup"
 ![Panther Log Source Configure](/img/okta6.png)
 7. Congratulatsions you just onboarded your first data source! 
+
 
 ## Lab 2
 In this exercise we will write another detection, this one will be to detect when a user successfully logs in as an administrator. 
