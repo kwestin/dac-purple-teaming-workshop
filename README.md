@@ -61,7 +61,7 @@ def rule(event):
 10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
 
-**L1: Exercise 2: Onboarding Okta Data**
+**Lab 1: Exercise 2: Onboarding Okta Data**
 1. [Sign up for a free Okta Developer](https://developer.okta.com/signup/) account if you have not done so.
 2. In your Okta Developer acccount go to Security > API and click on the "Tokens" tab
 ![Okta Token Page](/img/okta1.png)
@@ -75,16 +75,17 @@ def rule(event):
 ![Panther Log Source Configure](/img/okta6.png)
 7. Congratulatsions you just onboarded your first data source! 
 
-**L1: Exercise 3: Enable Detection Packs**
+**Lab 1: Exercise 3: Enable Detection Packs**
 1. Navigate to Build > Packs and search for "Okta"
 2. Update and enable "Panther Okta Pack"
 ![Panther Okta Pack](/img/packs1.png)
 
-## Lab 2 - 
+## Lab 2 - Detected Admin Console Access & Scheduled Searches
 
-In this exercise we will write another detection, this one will be to detect when a user successfully logs into the admin console 
+**Lab 2: Exercise 1**
+In this exercise we will write a new detection using what we have learned so far. We will want to write a detection for when a user successfully logs into the admin console. 
 
-We will start with the log data for this event
+We will start with the log data for this event:
 
 <details>
 	<summary>Click To View: Sample Okta Event For Admin Console Access</summary>
@@ -110,38 +111,14 @@ We will start with the log data for this event
 </details>
 
 
-
-
-
-
-
-
-
-**L4: Exercise 1: Installing Dorothy (optional)**
-Requirements: Python 3.7+, pip3 
-1. Installing Dorohty
-
-* Option 1: Using pip3 by runnning ```pip3 install dorothy``` 
-* Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy) 
-* Option 3:
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-
-
-## NOTES
-
-## Lab 1: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
+## Lab 3: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
 
 **Terms we'll reference**
 - [What are Packs?](https://docs.panther.com/writing-detections/detection-packs)
 
 
-**Exercise 2 Steps**
+**Exercise 1 Steps**
 1. In the Panther Console - Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
 3. Duplicate your tab 
@@ -194,7 +171,32 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 }
 ```
 
-test
+
+
+
+
+
+
+
+
+
+**L4: Exercise 1: Installing Dorothy (optional)**
+Requirements: Python 3.7+, pip3 
+1. Installing Dorohty
+
+* Option 1: Using pip3 by runnning ```pip3 install dorothy``` 
+* Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy) 
+* Option 3:
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+#
+
 
 
 
