@@ -38,7 +38,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 ```
 </details>
 
-**L1: Exercise 1**
+**Lab 1: Exercise 1**
 1. In the Panther Console - Navigate to Build > Detections > Create New
 2. Select "Rule" and give it a unique name "[YOUR NAME]'s Failed Login Detection" 
 3. Select the log source "Okta System Log" and set Severity to "Medium"
@@ -75,9 +75,14 @@ def rule(event):
 ![Panther Log Source Configure](/img/okta6.png)
 7. Congratulatsions you just onboarded your first data source! 
 
+**L1: Exercise 3: Enable Detection Packs **
+1. Navigate to Build > Packs and search for "Okta"
+2. Update and enable "Panther Okta Pack"
+![Panther Okta Pack](/img/packs1.png)
 
-## Lab 2
-In this exercise we will write another detection, this one will be to detect when a user successfully logs in as an administrator. 
+## Lab 2 - 
+
+In this exercise we will write another detection, this one will be to detect when a user successfully logs into the admin console 
 
 We will start with the log data for this event
 
@@ -105,12 +110,14 @@ We will start with the log data for this event
 </details>
 
 
-1. 
-
-## Lab 3 - Red Team Tools & API Key 
 
 
-**L3: Exercise 1: Installing Dorothy (optional)**
+
+
+
+
+
+**L4: Exercise 1: Installing Dorothy (optional)**
 Requirements: Python 3.7+, pip3 
 1. Installing Dorohty
 
