@@ -180,7 +180,7 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 
 
-##L4: Exercise 1: Installing Dorothy (optional)
+## L4: Exercise 1: Installing Dorothy (optional)
 Requirements: Python 3.7+, pip3 
 1. Installing Dorohty
 
