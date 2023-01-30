@@ -75,7 +75,7 @@ def rule(event):
 ![Panther Log Source Configure](/img/okta6.png)
 7. Congratulatsions you just onboarded your first data source! 
 
-**L1: Exercise 3: Enable Detection Packs **
+**L1: Exercise 3: Enable Detection Packs**
 1. Navigate to Build > Packs and search for "Okta"
 2. Update and enable "Panther Okta Pack"
 ![Panther Okta Pack](/img/packs1.png)
@@ -134,7 +134,7 @@ Requirements: Python 3.7+, pip3
 
 ## NOTES
 
-## L1: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
+## Lab 1: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
 
 **Terms we'll reference**
