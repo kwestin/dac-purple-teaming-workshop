@@ -109,6 +109,7 @@ We will start with the log data for this event:
 
 
 **Lab 2: Exercise 2 - Scheduled Queries**
+
 In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team. 
 
 
@@ -150,6 +151,7 @@ SELECT * from login_attempts
 HAVING num_fails >= 8 -- how many fails must follow a success to qualify
 ORDER BY clientIP, userAgent, actor, match_number
 ```
+
 
 
 ## Lab 3: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
@@ -213,11 +215,6 @@ def severity(event):
 }
 ```
 
-
-
-
-
-
 ## Lab 4: Purple Teaming Detections
 
 **Lab 4:  Exercise 1 - Installing Dorothy**
@@ -229,17 +226,12 @@ Requirements: Python 3.7+, pip3
 
 * Option 1: Using pip3 by runnning ```pip3 install dorothy``` 
 * Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy) 
-* Option 3: \\
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+2. We will simulate the process of an attacker creating a new access token, go to your Okta developer instance and create a new access token, copy and paste it somewhere safe
+![Okta Token Page](/img/dorothy_okta_key.png)
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-
-
-#
-
+3. Now we will run Dorothy and configure a new profile
+![Okta Token Page](/img/dorothy1.png)
 
 
 
