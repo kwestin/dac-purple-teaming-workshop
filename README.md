@@ -113,8 +113,8 @@ We will start with the log data for this event:
 **Lab 2: Exercise 2 - Scheduled Queries**
 In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. 
 
-<details>
-	<summary>Click To View SQL Query to Copy and Paste</summary>
+
+	
 ```
 WITH
 login_attempts AS ( -- filter for what we care about for speed
@@ -154,7 +154,7 @@ HAVING num_fails >= 8 -- how many fails must follow a success to qualify
 ORDER BY clientIP, userAgent, actor, match_number
 ```
 
-</details>
+
 
 
 
@@ -173,7 +173,8 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 5. Name the detection a unique name with your initials - Sample "Okta API Key Created - Brandon"
 6. Copy and Paste the code from Okta.APIKey.Created Packed Rule
 7. Grab the severity function from the templates page or below 
-```def severity(event):
+```
+def severity(event):
     if event.get("field") == "value":
         return "INFO"
     return "HIGH"
