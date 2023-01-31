@@ -110,6 +110,53 @@ We will start with the log data for this event:
 ```
 </details>
 
+**Lab 2: Exercise 2 - Scheduled Queries**
+In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. 
+
+<details>
+	<summary>Click To View SQL Query to Copy and Paste</summary>
+```
+WITH
+login_attempts AS ( -- filter for what we care about for speed
+  SELECT
+   p_event_time, 
+   outcome:result AS outcome, 
+   client:ipAddress AS clientIP, 
+   client:userAgent.rawUserAgent AS userAgent, 
+   actor
+  FROM  panther_logs.public.okta_systemlog
+  WHERE 
+    outcome:result IN ('SUCCESS','FAIL','ALLOW','DENY')
+    AND 
+    p_occurs_since('60 minutes')
+)
+
+SELECT * from login_attempts
+  MATCH_RECOGNIZE(
+    PARTITION BY clientIP, userAgent, actor
+    ORDER BY p_event_time DESC -- backwards in time
+    MEASURES
+      match_number() as match_number,
+      first(p_event_time) as start_time,
+      last(p_event_time) as end_time,
+      count(*) as rows_in_sequence,
+      count(row_with_success.*) as num_successes,
+      count(row_with_fail.*) as num_fails
+    ONE ROW PER MATCH
+    AFTER MATCH SKIP TO LAST row_with_fail
+    -- a success with fails following
+    PATTERN(row_with_success row_with_fail+)
+    DEFINE
+      row_with_success AS outcome IN ('SUCCESS','ALLOW'),
+      row_with_fail AS outcome IN ('FAIL','DENY')
+  )
+HAVING num_fails >= 8 -- how many fails must follow a success to qualify
+ORDER BY clientIP, userAgent, actor, match_number
+```
+
+</details>
+
+
 
 ## Lab 3: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
@@ -176,17 +223,18 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 
 
+## Lab 4: Purple Teaming Detections
 
+**Lab 4:  Exercise 1 - Installing Dorothy**
+Note: Dorothy does not use exploits or conduct any brute force, the tool requires an Okta access token. <br>
+DO NOT TEST THIS TOOL ON A PRODUCTION OKTA INSTANCE, PLEASE USER [YOUR FREE OKTA DEVELOPER ACCOUNT](https://developer.okta.com/)   
 
-
-
-## L4: Exercise 1: Installing Dorothy (optional)
 Requirements: Python 3.7+, pip3 
-1. Installing Dorohty
+1. Installing Dorothy 
 
 * Option 1: Using pip3 by runnning ```pip3 install dorothy``` 
 * Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy) 
-* Option 3:
+* Option 3: \\
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
