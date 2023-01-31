@@ -87,8 +87,6 @@ In this exercise we will write a new detection using what we have learned so far
 
 We will start with the log data for this event:
 
-<details>
-	<summary>Click To View: Sample Okta Event For Admin Console Access</summary>
 
 ```
 {
@@ -108,13 +106,12 @@ We will start with the log data for this event:
 	"severity": "INFO",
 }
 ```
-</details>
+
 
 **Lab 2: Exercise 2 - Scheduled Queries**
-In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. 
+In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team. 
 
 
-	
 ```
 WITH
 login_attempts AS ( -- filter for what we care about for speed
@@ -153,9 +150,6 @@ SELECT * from login_attempts
 HAVING num_fails >= 8 -- how many fails must follow a success to qualify
 ORDER BY clientIP, userAgent, actor, match_number
 ```
-
-
-
 
 
 ## Lab 3: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
