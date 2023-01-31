@@ -218,6 +218,8 @@ def severity(event):
 ## Lab 4: Purple Teaming Detections
 
 **Lab 4:  Exercise 1 - Installing Dorothy (Optional)**
+Dorothy is a tool to help security teams test their monitoring and detection capabilities for their Okta environment [created by David French](https://github.com/elastic/dorothy) [@threatpunter](https://twitter.com/threatpunter) at Elastic Security. 
+<br>
 Note: Dorothy does not use exploits or conduct any brute force, the tool requires an Okta access token.
 DO NOT TEST THIS TOOL ON A PRODUCTION OKTA INSTANCE, PLEASE USE [YOUR OKTA DEVELOPER ACCOUNT](https://developer.okta.com/)   
 
@@ -228,11 +230,18 @@ Requirements: Python 3.7+, pip3
 * Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy) 
 
 2. We will simulate the process of an attacker creating a new access token, go to your Okta developer instance and create a new access token, copy and paste it somewhere safe
+
 ![Okta Token Page](/img/dorothy_okta_key.png)
 
 3. Now we will run Dorothy and configure a new profile, you will enter a description, the URL of your Okta dev instance, the access token you just created, you can store the token locally, do not store the logs in Elasticsearch.
+
 ![Okta Token Page](/img/dorothy1.png)
 
-4. Once configured enter the command ```whoami``` to view 
+4. Once configured enter the command ```whoami``` to view the user and permissions tied to the access token, you should see that we have Super Administrator access. 
 
+![Okta Token Page](/img/dorothy3.png)
+
+5. We can list the available modules by entering the ```list-modules``` command 
+
+![Okta Token Page](/img/dorothy2.png)
 
