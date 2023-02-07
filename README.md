@@ -68,7 +68,7 @@ def rule(event):
 3. Click "Create Token" and give it a unique name
 ![Okta Token Page](/img/okta2.png)
 4. Copy the new token and past it somehwere safe as backup
-![Copy Token](/img/okta3.png)
+![Copy Token](/img/okta3a.png)
 5. Go to your Panther free trial instance and navigate to Configure > Log Sources and search for "Okta"
 ![Panther Log Source Configure](/img/okta5.png)
 6. Enter a name for the log source, your developer acccount subdomain and the API key we just created and click "Setup"
@@ -83,10 +83,12 @@ def rule(event):
 ## Lab 2 - Detected Admin Console Access & Scheduled Searches
 
 **Lab 2: Exercise 1**
-In this exercise we will write a new detection using what we have learned so far. We will want to write a detection for when a user successfully logs into the admin console. 
+In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
 
-We will start with the log data for this event:
+Extra points for using the ```def title(event) ``` function to add the admin name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
 
+<details>
+	<summary>Click To View Sample Data - Detect Successful Okta Admin Console Login </summary>
 
 ```
 {
@@ -96,16 +98,122 @@ We will start with the log data for this event:
 		"id": "00u84z2ve37HTBEAp5d7",
 		"type": "User"
 	},
-	"client": {
-		"ipAddress": "111.111.111.111",
+	"authenticationContext": {
+		"authenticationStep": 0,
+		"externalSessionId": "102rfBoaRdTSyil1K5J-70qZw"
 	},
+	"client": {
+		"device": "Computer",
+		"geographicalContext": {
+			"city": "Portland",
+			"country": "United States",
+			"geolocation": {
+				"lat": 45.4085,
+				"lon": -122.7981
+			},
+			"postalCode": "97224",
+			"state": "Oregon"
+		},
+		"ipAddress": "50.39.221.8",
+		"userAgent": {
+			"browser": "CHROME",
+			"os": "Mac OS X",
+			"rawUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+		},
+		"zone": "null"
+	},
+	"debugContext": {
+		"debugData": {
+			"dtHash": "01b9e25e49f63c515ec7d3d28541bc75dfe673c35931b96a7e90f433b524e2cb",
+			"requestId": "Y91XUfm5OI--q_zkmcFZiQAACSQ",
+			"requestUri": "/admin/sso/callback",
+			"url": "/admin/sso/callback?code=******&state=32V3eK8pCBdtyxns6tRJ_BVWKuB7_oGy"
+		}
+	},
+	"displayMessage": "User accessing Okta admin app",
 	"eventType": "user.session.access_admin_app",
+	"legacyEventType": "app.admin.sso.login.success",
 	"outcome": {
 		"result": "SUCCESS"
 	},
+	"p_any_domain_names": [
+		"ziplyfiber.com"
+	],
+	"p_any_emails": [
+		"lemmy@heavymetals.io"
+	],
+	"p_any_ip_addresses": [
+		"50.39.221.8"
+	],
+	"p_event_time": "2023-02-03 18:49:54.461",
+	"p_log_type": "Okta.SystemLog",
+	"p_parse_time": "2023-02-03 18:51:36.242",
+	"p_row_id": "ead08fa06833fd8afdd5ed981604",
+	"p_schema_version": 0,
+	"p_source_id": "1cb8ad2c-a88c-4eff-b7b7-aa9473638728",
+	"p_source_label": "WorkshopOkta",
+	"p_timeline": "2023-02-03 18:49:54.461",
+	"published": "2023-02-03 18:49:54.461",
+	"request": {
+		"ipChain": [
+			{
+				"geographicalContext": {
+					"city": "Portland",
+					"country": "United States",
+					"geolocation": {
+						"lat": 45.4085,
+						"lon": -122.7981
+					},
+					"postalCode": "97224",
+					"state": "Oregon"
+				},
+				"ip": "50.39.221.8",
+				"version": "V4"
+			}
+		]
+	},
+	"securityContext": {
+		"asNumber": 27017,
+		"asOrg": "ziply fiber",
+		"domain": "ziplyfiber.com",
+		"isProxy": false,
+		"isp": "ziply fiber"
+	},
 	"severity": "INFO",
+	"target": [
+		{
+			"alternateId": "lemmy@heavymetals.io",
+			"displayName": "Lemmy Kilmster",
+			"id": "00u84z2ve37HTBEAp5d7",
+			"type": "AppUser"
+		}
+	],
+	"transaction": {
+		"detail": {},
+		"id": "Y91XUfm5OI--q_zkmcFZiQAACSQ",
+		"type": "WEB"
+	},
+	"uuid": "8c4d4d05-a3f3-11ed-8916-39bd47e0f0ef",
+	"version": "0"
 }
 ```
+</details>
+
+<details>
+	<summary>Click To View Answer - Detect Successful Okta Admin Console Login </summary>
+  
+```
+from panther_base_helpers import deep_get
+
+def rule(event):
+    return event.get("eventType") == 'user.session.access_admin_app' and deep_get(event, 'outcome', 'result') == "SUCCESS"
+
+def title(event):
+    str_title=f"Okta Admin Console access by {deep_get(event,'actor','displayName')}"
+    return str_title
+
+```
+</details>
 
 
 **Lab 2: Exercise 2 - Scheduled Queries**
@@ -244,4 +352,9 @@ Requirements: Python 3.7+, pip3
 5. We can list the available modules by entering the ```list-modules``` command 
 
 ![Okta Token Page](/img/dorothy2.png)
+
+6. We will first create a new user first we go into the ```persistence ``` and then ```create-user```
+
+![Okta Token Page](/img/dorothy4.png)
+
 
