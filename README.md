@@ -262,7 +262,7 @@ ORDER BY clientIP, userAgent, actor, match_number
 
 
 
-## Lab 3: Exercise 2 - Apply an out-of-the-box detection and modify it for your environment
+## Lab 3: Exercise 2 - Modifying Existing Detections
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
 
 **Terms we'll reference**
@@ -306,8 +306,8 @@ def severity(event):
 	"severity": "INFO",
 	"displayMessage": "Create API token",
 	"actor": {
-		"alternateId": "user@example.com",
-		"displayName": "Test User",
+		"alternateId": "lemmy@heavymetals.io",
+		"displayName": "Lemmy Kilmster",
 		"id": "00u3q14ei6KUOm4Xi2p4",
 		"type": "User"
 	},
