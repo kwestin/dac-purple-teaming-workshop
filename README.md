@@ -325,7 +325,7 @@ def severity(event):
 
 ## Lab 4: Purple Teaming Detections
 
-**Lab 4:  Exercise 1 - Installing Dorothy (Optional)**
+**Lab 4:  Exercise 1 - Installing & Running Dorothy (Optional)**
 Dorothy is a tool to help security teams test their monitoring and detection capabilities for their Okta environment [created by David French](https://github.com/elastic/dorothy) [@threatpunter](https://twitter.com/threatpunter) at Elastic Security. 
 <br>
 Note: Dorothy does not use exploits or conduct any brute force, the tool requires an Okta access token.
@@ -356,5 +356,35 @@ Requirements: Python 3.7+, pip3
 6. We will first create a new user first we go into the ```persistence ``` and then ```create-user```
 
 ![Okta Token Page](/img/dorothy4.png)
+
+7. If we enter the ```info``` command we will see the parameters required for this module, we can set them with the ```set``` command followed by the appropirate required paramters for ```--first-name --last-name --email --login```. You can enter the ```info``` command again to verify the data has been added to the table. Next we will click ```execute``` you may need to enter this twice if you get an error the first time.
+
+![Okta Token Page](/img/dorothy5.png)
+
+8. We just created a regular user, however being the nefarious hackers we are we want to escalate this users privileges to administrator, in order to do that we need the Okta ID of that user. Enter the ```main``` command to go back to the main menu and then go into ```discovery``` and enter the ```get-users``` command and follow the prompt. This will dump all of the users, their permissions and unique Okta IDs. Copy and paste the ID for the user we just created somewhere.
+
+![Okta Token Page](/img/dorothy6.png)
+
+9. Now we will go back to the ```main``` menu then back into ```persistence``` and then we will select the ```create-admin-user``` module. Again we will execute the ```info``` command to see what parameters are required and you will see the only parameter needed is the ID of the user we want to elevate privileges for. As this access token is tied to a SUPER ADMIN account you have a lot of options with regards to the level of administration we can set for the key. We will select option 9 for SUPER_ADMIN.
+
+![Okta Token Page](/img/dorothy7.png)
+
+**Lab 4:  Exercise 2 - Installing & Running Dorothy (Optional)**
+
+1. Now let's go back to Panther and go to Data Explorer to see what data the activities in Dorothy generated Click on the "eye" icon next to the okat_systemlog table. It will populate some general SQL for us. Now let's change the ```ORDER by p_event_time asc``` to ```ORDER by p_event_time desc``` so we see the most recent events first. 
+
+![Okta Token Page](/img/data_exporer1.png)
+
+2. In our results we should see some interesting events that indicate the creation of a new user as well as the escalation of that user's privileges. 
+
+![Okta Token Page](/img/data_explorer_dorothy1.png)
+
+3. Based on what we have learned let's explore these events and write a couple of new detections: 
+
+	- Write a detection that will trigger when a new user is created, include additional context such as the user(s) created. 
+	- Write a detection that will trigger when a user's permissions are escalated and include additional context regarding who did it and what accounts were affected. 
+
+Hints: 
+
 
 
