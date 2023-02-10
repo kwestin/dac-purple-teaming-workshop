@@ -384,26 +384,61 @@ Requirements: Python 3.7+, pip3
 	- Write a detection that will trigger when a new user is created, include additional context such as the user(s) created. 
 	- Write a detection that will trigger when a user's permissions are escalated and include additional context regarding who did it and what accounts were affected. 
 
-Hints: 
+Hints: user.account.privilege.grant, user.lifecycle.create
 
 <details>
 	<summary>Click to view answer for accounts created </summary>
 
 ```
 def rule(event):
-    return True
+from panther_base_helpers import deep_get
+
+def rule(event):
+    return event.get("eventType") == 'user.lifecycle.create' and deep_get(event, "outcome","result") == "SUCCESS"
+
+def title(event):
+    
+    return "New account(s) created by  " + deep_get(event,"actor","displayName")
+
 
 def get_display_names(event):
-rv = []
-target = event.get('target')
+    rv = []
+    target = event.get('target')
     for x in target:
-rv.append(x.get('displayName'))
+        rv.append(x.get('displayName'))
+    return rv
+
+def alert_context(event):
+    return {"displayName": get_display_names(event)}
+```
+
+</details>
+
+
+<details>
+	<summary>Click to view answer for privilege escalation </summary>
+
+```
+from panther_base_helpers import deep_get
+
+def rule(event):
+    return event.get("eventType") == 'user.account.privilege.grant' and deep_get(event, "debugContext","debugData","privilegeGranted") == "Super administrator"
+
+def title(event):
+    
+    return "Privilege escalation by " + deep_get(event,"actor","displayName")
+
+def get_display_names(event):
+    rv = []
+    target = event.get('target')
+    for x in target:
+        rv.append(x.get('displayName'))
     return rv
 
 def alert_context(event):
     return {"displayName": get_display_names(event)}
 
+
 ```
 
 </details>
-
