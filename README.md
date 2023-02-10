@@ -85,7 +85,7 @@ def rule(event):
 **Lab 2: Exercise 1**
 In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
 
-Extra points for using the ```def title(event) ``` function to add the admin name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
+Extra points for using the ```def title(event) ``` function to add the admin's name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
 
 <details>
 	<summary>Click To View Sample Data - Detect Successful Okta Admin Console Login </summary>
@@ -218,8 +218,8 @@ def title(event):
 
 **Lab 2: Exercise 2 - Scheduled Queries**
 
-In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team. 
-
+In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team, it leverages the Snowflake SQL ``` 
+MATCH_RECOGNIZE()``` function. The query gathers successful and unsuccessful login events as well as client and user agent information from within the last 60 minute. This will look for failed logins followed by successful logins that we will want to look into as the account(s) in question may have been compromised. 
 
 ```
 WITH
@@ -386,5 +386,24 @@ Requirements: Python 3.7+, pip3
 
 Hints: 
 
+<details>
+	<summary>Click to view answer for accounts created </summary>
 
+```
+def rule(event):
+    return True
+
+def get_display_names(event):
+rv = []
+target = event.get('target')
+    for x in target:
+rv.append(x.get('displayName'))
+    return rv
+
+def alert_context(event):
+    return {"displayName": get_display_names(event)}
+
+```
+
+</details>
 
