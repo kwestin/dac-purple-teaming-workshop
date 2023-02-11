@@ -12,8 +12,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 - [What are Helpers?](https://docs.panther.com/writing-detections/globals?q=helpers)
 - [What is Deep_Get?](https://docs.panther.com/writing-detections/globals#deep_get)
 
-<details>
-	<summary>Click To View: Sample Okta Event - Failed Login</summary>
+Sample Okta Event - Failed Login:
   
 ```
 {
@@ -36,7 +35,7 @@ Using the rule function and other pre-existing helper functions, creating a dete
 	"p_parse_time": "2023-01:23 10:02:33.650807"
 }
 ```
-</details>
+
 
 **Lab 1: Exercise 1**
 1. In the Panther Console - Navigate to Build > Detections > Create New
@@ -87,9 +86,7 @@ In this exercise we will write a new detection using what we have learned so far
 
 Extra points for using the ```def title(event) ``` function to add the admin's name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
 
-<details>
-	<summary>Click To View Sample Data - Detect Successful Okta Admin Console Login </summary>
-
+Sample Data - Successful Okta Admin Console Login 
 ```
 {
 	"actor": {
@@ -197,7 +194,7 @@ Extra points for using the ```def title(event) ``` function to add the admin's n
 	"version": "0"
 }
 ```
-</details>
+
 
 <details>
 	<summary>Click To View Answer - Detect Successful Okta Admin Console Login </summary>
