@@ -269,22 +269,20 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 **Exercise 1 Steps**
 1. In the Panther Console - Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
-3. Duplicate your tab 
-4. Navigate to Build > Detections > Create New and Create a new rule (Do not clone packed rule)
-5. Name the detection a unique name with your initials - Sample "Okta API Key Created - Brandon"
-6. Copy and Paste the code from Okta.APIKey.Created Packed Rule
-7. Grab the severity function from the templates page or below 
+3. Click on "Clone & edit"
+4. Name the detection a unique name with your initials - Sample "Okta API Key Created - Brandon"
+5. Grab the severity function from the templates page or below 
 ```
 def severity(event):
     if event.get("field") == "value":
         return "INFO"
     return "HIGH"
 ```
-8. Add the severity function into your detection. Anywhere under the rule function is fine. 
-9. Copy over the test event with the sample log event from Okta Sample Data Below
-10. Modify the severity function to return a "Low" event when the user is your own email or otherwise return a "High" event (Hint - you will have to use deep_get for this)
-11. Test your changes using the unit test
-12. Save Changes
+6. Add the severity function into your detection. Anywhere under the rule function is fine. 
+7. Copy over the test event with the sample log event from Okta Sample Data Below
+8. Modify the severity function to return a "Low" event when the user is your own email or otherwise return a "High" event (Hint - you will have to use deep_get for this)
+9. Test your changes using the unit test
+10. Save Changes
 
 
 **Okta API Key Created Log Event**
