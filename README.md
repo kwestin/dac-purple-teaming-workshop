@@ -60,7 +60,10 @@ def rule(event):
 10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
 
-**Lab 1: Exercise 2: Onboarding Okta Data**
+
+## Lab 2 - Detected Admin Console Access 
+
+**Lab 2: Exercise 1: Onboarding Okta Data**
 1. [Sign up for a free Okta Developer](https://developer.okta.com/signup/) account if you have not done so.
 2. In your Okta Developer acccount go to Security > API and click on the "Tokens" tab
 ![Okta Token Page](/img/okta1.png)
@@ -74,14 +77,13 @@ def rule(event):
 ![Panther Log Source Configure](/img/okta6.png)
 7. Congratulatsions you just onboarded your first data source! 
 
-**Lab 1: Exercise 3: Enable Detection Packs**
+**Lab 2: Exercise 2: Enable Detection Packs**
 1. Navigate to Build > Packs and search for "Okta"
 2. Update and enable "Panther Okta Pack"
 ![Panther Okta Pack](/img/packs1.png)
 
-## Lab 2 - Detected Admin Console Access & Scheduled Searches
 
-**Lab 2: Exercise 1**
+**Lab 2: Exercise 3**
 In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
 
 Extra points for using the ```def title(event) ``` function to add the admin's name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
@@ -213,51 +215,6 @@ def title(event):
 </details>
 
 
-**Lab 2: Exercise 2 - Scheduled Queries**
-
-In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team, it leverages the Snowflake SQL ``` 
-MATCH_RECOGNIZE()``` function. The query gathers successful and unsuccessful login events as well as client and user agent information from within the last 60 minute. This will look for failed logins followed by successful logins that we will want to look into as the account(s) in question may have been compromised. 
-
-```
-WITH
-login_attempts AS ( -- filter for what we care about for speed
-  SELECT
-   p_event_time, 
-   outcome:result AS outcome, 
-   client:ipAddress AS clientIP, 
-   client:userAgent.rawUserAgent AS userAgent, 
-   actor
-  FROM  panther_logs.public.okta_systemlog
-  WHERE 
-    outcome:result IN ('SUCCESS','FAIL','ALLOW','DENY')
-    AND 
-    p_occurs_since('60 minutes')
-)
-
-SELECT * from login_attempts
-  MATCH_RECOGNIZE(
-    PARTITION BY clientIP, userAgent, actor
-    ORDER BY p_event_time DESC -- backwards in time
-    MEASURES
-      match_number() as match_number,
-      first(p_event_time) as start_time,
-      last(p_event_time) as end_time,
-      count(*) as rows_in_sequence,
-      count(row_with_success.*) as num_successes,
-      count(row_with_fail.*) as num_fails
-    ONE ROW PER MATCH
-    AFTER MATCH SKIP TO LAST row_with_fail
-    -- a success with fails following
-    PATTERN(row_with_success row_with_fail+)
-    DEFINE
-      row_with_success AS outcome IN ('SUCCESS','ALLOW'),
-      row_with_fail AS outcome IN ('FAIL','DENY')
-  )
-HAVING num_fails >= 8 -- how many fails must follow a success to qualify
-ORDER BY clientIP, userAgent, actor, match_number
-```
-
-
 
 ## Lab 3: Exercise 2 - Modifying Existing Detections
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
@@ -364,7 +321,7 @@ Requirements: Python 3.7+, pip3
 
 ![Okta Token Page](/img/dorothy7.png)
 
-**Lab 4:  Exercise 2 - Installing & Running Dorothy (Optional)**
+##Lab 5: Using Investigate and a Security Data Lake 
 
 1. Now let's go back to Panther and go to Data Explorer to see what data the activities in Dorothy generated Click on the "eye" icon next to the okat_systemlog table. It will populate some general SQL for us. Now let's change the ```ORDER by p_event_time asc``` to ```ORDER by p_event_time desc``` so we see the most recent events first. 
 
@@ -437,3 +394,50 @@ def alert_context(event):
 ```
 
 </details>
+
+
+
+
+**Bonus Lab - Scheduled Queries**
+
+In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team, it leverages the Snowflake SQL ``` 
+MATCH_RECOGNIZE()``` function. The query gathers successful and unsuccessful login events as well as client and user agent information from within the last 60 minute. This will look for failed logins followed by successful logins that we will want to look into as the account(s) in question may have been compromised. 
+
+```
+WITH
+login_attempts AS ( -- filter for what we care about for speed
+  SELECT
+   p_event_time, 
+   outcome:result AS outcome, 
+   client:ipAddress AS clientIP, 
+   client:userAgent.rawUserAgent AS userAgent, 
+   actor
+  FROM  panther_logs.public.okta_systemlog
+  WHERE 
+    outcome:result IN ('SUCCESS','FAIL','ALLOW','DENY')
+    AND 
+    p_occurs_since('60 minutes')
+)
+
+SELECT * from login_attempts
+  MATCH_RECOGNIZE(
+    PARTITION BY clientIP, userAgent, actor
+    ORDER BY p_event_time DESC -- backwards in time
+    MEASURES
+      match_number() as match_number,
+      first(p_event_time) as start_time,
+      last(p_event_time) as end_time,
+      count(*) as rows_in_sequence,
+      count(row_with_success.*) as num_successes,
+      count(row_with_fail.*) as num_fails
+    ONE ROW PER MATCH
+    AFTER MATCH SKIP TO LAST row_with_fail
+    -- a success with fails following
+    PATTERN(row_with_success row_with_fail+)
+    DEFINE
+      row_with_success AS outcome IN ('SUCCESS','ALLOW'),
+      row_with_fail AS outcome IN ('FAIL','DENY')
+  )
+HAVING num_fails >= 8 -- how many fails must follow a success to qualify
+ORDER BY clientIP, userAgent, actor, match_number
+```
