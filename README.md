@@ -83,6 +83,8 @@ def rule(event):
 ![Panther Okta Pack](/img/packs1.png)
 
 
+___________________________________________________
+
 **Lab 2: Exercise 3**
 In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
 
@@ -215,6 +217,7 @@ def title(event):
 </details>
 
 
+___________________________________________________
 
 ## Lab 3: Exercise 2 - Modifying Existing Detections
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
@@ -223,7 +226,7 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 - [What are Packs?](https://docs.panther.com/writing-detections/detection-packs)
 
 
-**Exercise 1 Steps**
+**Lab 3: Exercise 1 Steps**
 1. In the Panther Console - Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
 3. Click on "Clone & edit"
@@ -275,6 +278,9 @@ def severity(event):
 }
 ```
 
+
+___________________________________________________
+
 ## Lab 4: Purple Teaming Detections
 
 **Lab 4:  Exercise 1 - Installing & Running Dorothy (Optional)**
@@ -320,6 +326,9 @@ Requirements: Python 3.7+, pip3
 9. Now we will go back to the ```main``` menu then back into ```persistence``` and then we will select the ```create-admin-user``` module. Again we will execute the ```info``` command to see what parameters are required and you will see the only parameter needed is the ID of the user we want to elevate privileges for. As this access token is tied to a SUPER ADMIN account you have a lot of options with regards to the level of administration we can set for the key. We will select option 9 for SUPER_ADMIN.
 
 ![Okta Token Page](/img/dorothy7.png)
+
+
+___________________________________________________
 
 ##Lab 5: Using Investigate and a Security Data Lake 
 
