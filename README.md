@@ -60,6 +60,7 @@ def rule(event):
 10. Let's set a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
 
+___________________________________________________
 
 ## Lab 2 - Detected Admin Console Access 
 
@@ -82,8 +83,6 @@ def rule(event):
 2. Update and enable "Panther Okta Pack"
 ![Panther Okta Pack](/img/packs1.png)
 
-
-___________________________________________________
 
 **Lab 2: Exercise 3**
 In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
