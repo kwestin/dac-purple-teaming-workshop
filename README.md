@@ -62,7 +62,7 @@ def rule(event):
 
 ___________________________________________________
 
-## Lab 2 - Detected Admin Console Access 
+## Lab 2 - Data Onboarding, Packs & Detected Admin Console Access 
 
 **Lab 2: Exercise 1: Onboarding Okta Data**
 1. [Sign up for a free Okta Developer](https://developer.okta.com/signup/) account if you have not done so.
@@ -78,13 +78,8 @@ ___________________________________________________
 ![Panther Log Source Configure](/img/okta6.png)
 7. Congratulatsions you just onboarded your first data source! 
 
-**Lab 2: Exercise 2: Enable Detection Packs**
-1. Navigate to Build > Packs and search for "Okta"
-2. Update and enable "Panther Okta Pack"
-![Panther Okta Pack](/img/packs1.png)
 
-
-**Lab 2: Exercise 3**
+**Lab 2: Exercise 2**
 In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
 
 Extra points for using the ```def title(event) ``` function to add the admin's name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
@@ -209,7 +204,7 @@ def rule(event):
     return event.get("eventType") == 'user.session.access_admin_app' and deep_get(event, 'outcome', 'result') == "SUCCESS"
 
 def title(event):
-    str_title=f"Okta Admin Console access by {deep_get(event,'actor','displayName')}"
+    str_title = f"Okta Admin Console access by {deep_get(event,'actor','displayName')}"
     return str_title
 
 ```
@@ -218,14 +213,19 @@ def title(event):
 
 ___________________________________________________
 
-## Lab 3: Exercise 2 - Modifying Existing Detections
+## Lab 3: Exercise 2 - Modifying Existing Detections & Detectin API Key Creation
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
 
 **Terms we'll reference**
 - [What are Packs?](https://docs.panther.com/writing-detections/detection-packs)
 
 
-**Lab 3: Exercise 1 Steps**
+**Lab 3: Exercise 1: Enable Detection Packs**
+1. Navigate to Build > Packs and search for "Okta"
+2. Update and enable "Panther Okta Pack"
+![Panther Okta Pack](/img/packs1.png)
+
+**Lab 3: Exercise 2 **
 1. In the Panther Console - Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
 3. Click on "Clone & edit"
@@ -329,22 +329,22 @@ Requirements: Python 3.7+, pip3
 
 ___________________________________________________
 
-##Lab 5: Using Investigate and a Security Data Lake 
+## Lab 5: Using Investigate and a Security Data Lake 
 
-1. Now let's go back to Panther and go to Data Explorer to see what data the activities in Dorothy generated Click on the "eye" icon next to the okat_systemlog table. It will populate some general SQL for us. Now let's change the ```ORDER by p_event_time asc``` to ```ORDER by p_event_time desc``` so we see the most recent events first. 
+1. Now let's go back to Panther and go to Query Builder to see what data the activities in Dorothy generated, select the okta_systemlog table and click search. This will default sort to the most recent events first. 
 
-![Okta Token Page](/img/data_exporer1.png)
+![Query Builder ](/img/query_builder1.png)
 
 2. In our results we should see some interesting events that indicate the creation of a new user as well as the escalation of that user's privileges. 
 
-![Okta Token Page](/img/data_explorer_dorothy1.png)
+![Query Builder ](/img/query_builder2.png)
 
 3. Based on what we have learned let's explore these events and write a couple of new detections: 
 
 	- Write a detection that will trigger when a new user is created, include additional context such as the user(s) created. 
 	- Write a detection that will trigger when a user's permissions are escalated and include additional context regarding who did it and what accounts were affected. 
 
-Hints: user.account.privilege.grant, user.lifecycle.create
+Hints: look for these eventTypes ```user.account.privilege.grant``` and ```user.lifecycle.create```
 
 <details>
 	<summary>Click to view answer for accounts created </summary>
