@@ -213,7 +213,7 @@ def title(event):
 
 ___________________________________________________
 
-## Lab 3: Exercise 2 - Modifying Existing Detections & Detectin API Key Creation
+## Lab 3: Exercise 2 - Modifying Existing Detections & Detecting API Key Creation
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available. 
 
 **Terms we'll reference**
