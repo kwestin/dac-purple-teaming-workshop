@@ -80,6 +80,7 @@ ___________________________________________________
 
 
 **Lab 2: Exercise 2**
+
 In this exercise we will write a new detection using what we have learned so far. If we look at the authenticaion logs there isn't any indicator the user is an administrator. However, once an admin logs in they are directed to the admin console which is logged as a seperate event. Log out of your Developer Okta instance and then back in. Go to Data Explorer and search for recent Okta event logs sorted in descending order. We will want to write a detection for when a user successfully logs into the admin console using what we have learned so far. Hint: Look for the eventType "user.session.access_admin_app." 
 
 Extra points for using the ```def title(event) ``` function to add the admin's name to the title. You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
@@ -278,6 +279,17 @@ def severity(event):
 ```
 
 
+<details>
+	<summary>Click To View Answer - Detect Successful Okta Admin Console Login </summary>
+	
+```
+def severity(event):
+    if deep_get(event,"actor","alternateId") == "lemmy@heavymetals.io":
+        return "LOW"
+    return "HIGH"
+
+```
+</details>
 ___________________________________________________
 
 ## Lab 4: Purple Teaming Detections
