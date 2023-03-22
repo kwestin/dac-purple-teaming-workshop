@@ -280,7 +280,7 @@ def severity(event):
 
 
 <details>
-	<summary>Click To View Answer - Detect Successful Okta Admin Console Login </summary>
+	<summary>Click To View Answer </summary>
 	
 ```
 def severity(event):
