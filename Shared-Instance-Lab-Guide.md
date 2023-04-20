@@ -72,7 +72,7 @@ ___________________________________________________
 
 ## Lab 2 - Data Onboarding, Packs & Detected Admin Console Access
 
-### Lab 2: Exercise 1: Onboarding Okta Data
+### Lab 2: Exercise 1: Onboarding Okta Data Walkthrough (requires Panther Free Trial panther.com/free-trial/)
 
 1. [Sign up for a free Okta Developer](https://developer.okta.com/signup/) account if you have not done so.
 2. In your Okta Developer acccount go to Security > API and click on the "Tokens" tab
@@ -245,18 +245,19 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 ## Lab 3: Exercise 1: Enable Detection Packs
 
-1. Navigate to Build > Packs and search for "Okta"
-2. Update and enable "Panther Okta Pack"
+1. The relevant packs are already enabled in our shared instance
+2. If you have a trial instance you can enable them by navigatin to Build > Packs and search for "Okta"
+3. Update and enable "Panther Okta Pack"
 ![Panther Okta Pack](/img/packs1.png)
 
-## Lab 3: Exercise 2
+## Lab 3: Exercise 1
 
 1. In the Panther Console, Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
-3. Click on "Clone & edit"
-4. Name the detection a unique name with your initials - Sample "Okta API Key Created - Brandon"
-    - If the field is greyed out, save the rule and then edit it again.
-5. Grab the severity function from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
+3. Open another tab and navigate to Build > Detections > Create New 
+4. Name the detection with your name at the beginning - Sample " Lemmy Kilmster Okta API Key Created"
+5. Copy the sample test data and code logic from the existing detection and paste it into the new detection you are creating
+6. Grab the severity function from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
 
     ``` python
     def severity(event):
@@ -327,12 +328,12 @@ ___________________________________________________
 
 ## Lab 4: Purple Teaming Detections
 
-## Lab 4:  Exercise 1 - Installing & Running Dorothy (Optional)
+## Lab 4:  Exercise 1 - Installing & Running Dorothy Walkthrough
 
-Dorothy is a tool to help security teams test their monitoring and detection capabilities for their Okta environment [created by David French](https://github.com/elastic/dorothy) [@threatpunter](https://twitter.com/threatpunter) at Elastic Security. 
+Dorothy is a tool to help security teams test their monitoring and detection capabilities for their Okta environment [created by David French](https://github.com/elastic/dorothy) [@threatpunter](https://twitter.com/threatpunter) at Elastic Security. In this exercise the instructor will run the attack for you and you will be able to see the sample logs in the Query Builder. 
 <br>
 Note: Dorothy does not use exploits or conduct any brute force, the tool requires an Okta access token.
-DO NOT TEST THIS TOOL ON A PRODUCTION OKTA INSTANCE, PLEASE USE [YOUR OKTA DEVELOPER ACCOUNT](https://developer.okta.com/)
+DO NOT TEST THIS TOOL ON A PRODUCTION OKTA INSTANCE, PLEASE USE [AN OKTA DEVELOPER ACCOUNT](https://developer.okta.com/)
 
 Requirements: Python 3.7+, pip3
 
