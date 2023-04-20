@@ -374,7 +374,7 @@ ___________________________________________________
     	<summary>Click to view answer for accounts created </summary>
 
     ``` python
-    def rule(event):
+  
     from panther_base_helpers import deep_get
     
     def rule(event):
