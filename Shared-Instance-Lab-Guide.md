@@ -149,13 +149,13 @@ Actions to perform:
           "result": "SUCCESS"
          },
          "p_any_domain_names": [
-          "ziplyfiber.com"
+          ""
          ],
          "p_any_emails": [
           "lemmy@heavymetals.io"
          ],
          "p_any_ip_addresses": [
-          "50.39.221.8"
+          ""
          ],
          "p_event_time": "2023-02-03 18:49:54.461",
          "p_log_type": "Okta.SystemLog",
@@ -176,20 +176,20 @@ Actions to perform:
               "lat": 45.4085,
               "lon": -122.7981
              },
-             "postalCode": "97224",
+             "postalCode": "",
              "state": "Oregon"
             },
-            "ip": "50.39.221.8",
+            "ip": "",
             "version": "V4"
            }
           ]
          },
          "securityContext": {
           "asNumber": 27017,
-          "asOrg": "ziply fiber",
-          "domain": "ziplyfiber.com",
+          "asOrg": "",
+          "domain": "",
           "isProxy": false,
-          "isp": "ziply fiber"
+          "isp": "fiber"
          },
          "severity": "INFO",
          "target": [
