@@ -61,7 +61,7 @@ Sample Okta Event - Failed Login:
     from panther_base_helpers import deep_get
     
     def rule(event):
-        return event.get("eventType") == 'user.session.start' and deep_get    (event, 'outcome', 'result') == "FAILURE"
+        return event.get("eventType") == 'user.session.start' and deep_get(event, 'outcome', 'result') == "FAILURE"
     
     ```
 
