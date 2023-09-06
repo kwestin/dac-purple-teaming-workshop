@@ -65,7 +65,7 @@ Sample Okta Event - Failed Login:
     
     ```
 
-7. Finally, let's improve this detection by setting a threshold for this alert in the "Rule Settings" tab , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
+7. Finally, let's improve this detection by setting a threshold for this alert in the "Optional Fields" menu , so we only get an alert triggered if there are 5 failed logins within a 15 minute interval.
 ![Threshold and depduplication](/img/depuplication.png)
 
 ___________________________________________________
