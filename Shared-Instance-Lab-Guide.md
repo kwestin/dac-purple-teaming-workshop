@@ -231,8 +231,8 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 1. In the Panther Console, Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
-3. Open another tab and navigate to Build > Detections > Create New 
-4. Name the detection with your name at the beginning - Sample " Lemmy Kilmster Okta API Key Created"
+3. In the navigation select Clone  
+4. Add your name at the end of the detection- Sample " Okta API Key Created Lemmy Kilmster"
 5. Copy the sample test data and code logic from the existing detection and paste it into the new detection you are creating
 6. Grab the severity function from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
 
