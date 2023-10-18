@@ -243,12 +243,6 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 - [What are Packs?](https://docs.panther.com/writing-detections/detection-packs)
 
-## Lab 3: Exercise 1: Enable Detection Packs
-
-1. The relevant packs are already enabled in our shared instance
-2. If you have a trial instance you can enable them by navigatin to Build > Packs and search for "Okta"
-3. Update and enable "Panther Okta Pack"
-![Panther Okta Pack](/img/packs1.png)
 
 ## Lab 3: Exercise 1
 
@@ -328,38 +322,13 @@ ___________________________________________________
 
 ## Lab 4: Purple Teaming Detections
 
-## Lab 4:  Exercise 1 - Installing & Running Dorothy Walkthrough
+The facilitator will run offensive operations against our Okta Developer account using Dorothy, this will generate attack data in our Security Data Lake that we will use to develop hypotheses for new detections. 
 
-Dorothy is a tool to help security teams test their monitoring and detection capabilities for their Okta environment [created by David French](https://github.com/elastic/dorothy) [@threatpunter](https://twitter.com/threatpunter) at Elastic Security. In this exercise the instructor will run the attack for you and you will be able to see the sample logs in the Query Builder. 
-<br>
-Note: Dorothy does not use exploits or conduct any brute force, the tool requires an Okta access token.
-DO NOT TEST THIS TOOL ON A PRODUCTION OKTA INSTANCE, PLEASE USE [AN OKTA DEVELOPER ACCOUNT](https://developer.okta.com/)
 
-Requirements: Python 3.7+, pip3
-
-1. Installing Dorothy
-    - Option 1: Using pip3 by runnning `pip3 install dorothy`
-    - Option 2: You can install [Dorothy from source code](https://github.com/elastic/dorothy)=
-2. We will simulate the process of an attacker creating a new access token, go to your Okta developer instance and create a new access token, copy and paste it somewhere safe
-    ![Okta Token Page](/img/dorothy_okta_key.png)
-3. Now we will run Dorothy and configure a new profile, you will enter a description, the URL of your Okta dev instance, the access token you just created, you can store the token locally, do not store the logs in Elasticsearch.
-    ![Okta Token Page](/img/dorothy1.png)
-4. Once configured enter the command `whoami` to view the user and permissions tied to the access token, you should see that we have Super Administrator access.
-    ![Okta Token Page](/img/dorothy3.png)
-5. We can list the available modules by entering the `list-modules` command
-    ![Okta Token Page](/img/dorothy2.png)
-6. We will first create a new user first we go into the `persistence` and then `create-user`
-    ![Okta Token Page](/img/dorothy4.png)
-7. If we enter the `info` command we will see the parameters required for this module, we can set them with the `set` command followed by the appropirate required paramters for `--first-name --last-name --email --login`. You can enter the `info` command again to verify the data has been added to the table. Next we will click `execute` you may need to enter this twice if you get an error the first time.
-    ![Okta Token Page](/img/dorothy5.png)
-8. We just created a regular user, however being the nefarious hackers we are we want to escalate this users privileges to administrator, in order to do that we need the Okta ID of that user. Enter the `main` command to go back to the main menu and then go into `discovery` and enter the `get-users` command and follow the prompt. This will dump all of the users, their permissions and unique Okta IDs. Copy and paste the ID for the user we just created somewhere.
-    ![Okta Token Page](/img/dorothy6.png)
-9. Now we will go back to the `main` menu then back into `persistence` and then we will select the `create-admin-user` module. Again we will execute the `info` command to see what parameters are required and you will see the only parameter needed is the ID of the user we want to elevate privileges for. As this access token is tied to a SUPER ADMIN account you have a lot of options with regards to the level of administration we can set for the key. We will select option 9 for SUPER_ADMIN.
-    ![Okta Token Page](/img/dorothy7.png)
 
 ___________________________________________________
 
-## Lab 5: Using Investigate and a Security Data Lake
+## Lab 4: Using Investigate and a Security Data Lake
 
 1. Now let's go back to Panther and go to Query Builder to see what data the activities in Dorothy generated, select the okta_systemlog table and click search. This will default sort to the most recent events first.
     ![Query Builder ](/img/query_builder1.png)
@@ -424,45 +393,3 @@ ___________________________________________________
     </details>
 ___________________________________________________
 
-## Bonus Lab - Scheduled Queries
-
-In addition to real-time detections, we can also look at data over a longer window of time via our Security Data Lake. Here we will create a scheduled query that looks specifically at a sequence of events leading to a successful brute force. The SQL statement has been provided to us by our threat hunting team, it leverages the Snowflake SQL `MATCH_RECOGNIZE()` function. The query gathers successful and unsuccessful login events as well as client and user agent information from within the last 60 minute. This will look for failed logins followed by successful logins that we will want to look into as the account(s) in question may have been compromised.
-
-``` sql
-WITH
-login_attempts AS ( -- filter for what we care about for speed
-  SELECT
-   p_event_time, 
-   outcome:result AS outcome, 
-   client:ipAddress AS clientIP, 
-   client:userAgent.rawUserAgent AS userAgent, 
-   actor
-  FROM  panther_logs.public.okta_systemlog
-  WHERE 
-    outcome:result IN ('SUCCESS','FAIL','ALLOW','DENY')
-    AND 
-    p_occurs_since('60 minutes')
-)
-
-SELECT * from login_attempts
-  MATCH_RECOGNIZE(
-    PARTITION BY clientIP, userAgent, actor
-    ORDER BY p_event_time DESC -- backwards in time
-    MEASURES
-      match_number() as match_number,
-      first(p_event_time) as start_time,
-      last(p_event_time) as end_time,
-      count(*) as rows_in_sequence,
-      count(row_with_success.*) as num_successes,
-      count(row_with_fail.*) as num_fails
-    ONE ROW PER MATCH
-    AFTER MATCH SKIP TO LAST row_with_fail
-    -- a success with fails following
-    PATTERN(row_with_success row_with_fail+)
-    DEFINE
-      row_with_success AS outcome IN ('SUCCESS','ALLOW'),
-      row_with_fail AS outcome IN ('FAIL','DENY')
-  )
-HAVING num_fails >= 8 -- how many fails must follow a success to qualify
-ORDER BY clientIP, userAgent, actor, match_number
-```
