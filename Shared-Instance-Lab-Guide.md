@@ -226,9 +226,6 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 - [What are Packs?](https://docs.panther.com/writing-detections/detection-packs)
 
-
-## Lab 3: Exercise 1
-
 1. In the Panther Console, Navigate to Build > Packs > Okta Pack
 2. Select the Okta.APIKey.Created rule
 3. In the navigation select Clone  
