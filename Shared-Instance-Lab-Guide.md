@@ -313,10 +313,10 @@ ___________________________________________________
 
 ## Lab 4: Using Investigate and a Security Data Lake
 
-1. Now let's go back to Panther and go to Query Builder to see what data the activities in Dorothy generated, select the okta_systemlog table and click search. This will default sort to the most recent events first.
+1. Now let's go back to Panther and go to Search to see what data the activities in Dorothy generated, select the okta_systemlog table and click search. This will default sort to the most recent events first. We want to make sure we add the eventType field to our search results. 
     ![Query Builder ](/img/query_builder1.png)
 2. In our results we should see some interesting events that indicate the creation of a new user as well as the escalation of that user's privileges.
-    ![Query Builder ](/img/query_builder2.png)
+  
 3. Based on what we have learned let's explore these events and write a couple of new detections:
     - Write a detection that will trigger when a new user is created, include additional context such as the user(s) created.
     - Write a detection that will trigger when a user's permissions are escalated and include additional context regarding who did it and what accounts were affected.
