@@ -233,8 +233,7 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 2. Select the Okta.APIKey.Created rule
 3. In the navigation select Clone  
 4. Add your name at the end of the detection- Sample " Okta API Key Created Lemmy Kilmster"
-5. Copy the sample test data and code logic from the existing detection and paste it into the new detection you are creating
-6. Grab the severity function from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
+5. Grab the severity function from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
 
     ``` python
     def severity(event):
