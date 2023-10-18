@@ -72,23 +72,6 @@ ___________________________________________________
 
 ## Lab 2 - Data Onboarding, Packs & Detected Admin Console Access
 
-### Lab 2: Exercise 1: Onboarding Okta Data Walkthrough (requires Panther Free Trial panther.com/free-trial/)
-
-1. [Sign up for a free Okta Developer](https://developer.okta.com/signup/) account if you have not done so.
-2. In your Okta Developer acccount go to Security > API and click on the "Tokens" tab
-![Okta Token Page](/img/okta1.png)
-3. Click "Create Token" and give it a unique name
-![Okta Token Page](/img/okta2.png)
-4. Copy the new token and past it somehwere safe as backup
-![Copy Token](/img/okta3a.png)
-5. Go to your Panther free trial instance and navigate to Configure > Log Sources and search for "Okta"
-![Panther Log Source Configure](/img/okta5.png)
-6. Enter a name for the log source, your developer acccount subdomain and the API key we just created and click "Setup"
-![Panther Log Source Configure](/img/okta6.png)
-7. Congratulatsions you just onboarded your first data source!
-
-### Lab 2: Exercise 2
-
 In this exercise, we will write a new detection using what we have learned. If we look at Okta's authentication logs, no indicator states that the user is an administrator. However, once an admin signs in, they are directed to the admin console, which Okta logs as a separate event.
 
 Actions to perform:
