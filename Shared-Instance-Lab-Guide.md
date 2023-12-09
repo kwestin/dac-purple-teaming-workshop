@@ -75,11 +75,12 @@ In this exercise, we will write a new detection using what we have learned. If w
 
 Actions to perform:
 
-1. The facilitator will log out of your Developer Okta instance and back in to generate data that will stream to Panther.
+1. The facilitator will log out of a Developer Okta instance and back in to generate data that will stream to Panther.
 2. In the Panther Console, navigate to Investigate > Search and search for recent Okta event logs.
     - Database: panther_logs.public
     - Table: okta_systemlog
-    - You should see an event that looks like this in Data Explorer, we will copy and past that JSON into the test field of our detection.
+    - Add "eventType" in the column search field and add the column to our search results
+    - You should see an event that looks like this in Search, we will copy and past that JSON into the test field of our detection.
 
         <details>
             <summary> Sample Okta Event </summary>
