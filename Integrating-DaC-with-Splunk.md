@@ -1,6 +1,6 @@
 
 
-# Welcome to Purple Teaming with Detection-as-Code for Modern SIEM
+# Welcome to Integrating Detection-as-Code with Splunk Purple Teaming Exercises for High Volume Log Sources
 
 This guide will provide you with a step-by-step of all the commands we will use throughout this workshop. Please reference it as we move forward. If you have questions, feel free to ask your group moderator.
 
