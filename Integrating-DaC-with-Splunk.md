@@ -231,7 +231,7 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 2. Select the Root Account Activity rule
 3. In the navigation select Clone  
 4. Add your name at the end of the detection- Sample " Root Account Activity[YOUR NAME]"
-5. Modify the severity function so Read Only events are "Medium" severitty from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
+5. Modify the severity function so Read Only events are "Medium" severity:
 
     ``` python
     
@@ -243,7 +243,7 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
     ```
 
 
-6. Deploy your rule
+6. Save and deploy your rule
 
  
 
