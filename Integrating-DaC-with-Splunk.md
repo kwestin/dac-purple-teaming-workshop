@@ -219,7 +219,7 @@ Actions to perform:
 
 ___________________________________________________
 
-## Lab 3: Modifying Existing Detections & Detecting API Key Creation
+## Lab 3: Modifying Existing Detections & Detecting AWS Root Activity
 
 By utilzing a pre-packaged detection, we can easily modify an existing detection to tune to our environment. By using the python functions that Panther provides, code templates are easily available.
 
@@ -227,76 +227,22 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
 - [What are Packs?](https://docs.panther.com/writing-detections/detection-packs)
 
-1. In the Panther Console, Navigate to Build > Packs > Okta Pack
-2. Select the Okta.APIKey.Created rule
+1. In the Panther Console, Navigate to Build > Packs > Panther Core AWS Pack
+2. Select the Root Account Activity rule
 3. In the navigation select Clone  
-4. Add your name at the end of the detection- Sample " Okta API Key Created Lemmy Kilmster"
-5. Grab the severity function from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
+4. Add your name at the end of the detection- Sample " Root Account Activity[YOUR NAME]"
+5. Modify the severity function so Read Only events are "Medium" severitty from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
 
     ``` python
-    def severity(event):
-        if event.get("field") == "value":
-            return "INFO"
-        return "HIGH"
+  def severity(event):
+    if event.get("readOnly"):
+        return "MEDIUM"
+    return "HIGH"
     ```
 
-6. Add the severity function into your detection anywhere under the rule function.
-7. Copy the test event with the sample log event from Okta Sample Data Below
+6. Deploy your rule
 
-    <details>
-    	<summary>Sample Okta log event</summary>
-
-    ``` json
-    {
-     "debugContext": {},
-     "published": "2021-01-08 21:28:34.875",
-     "eventType": "system.api_token.create",
-     "version": "0",
-     "legacyEventType": "api.token.create",
-     "outcome": {
-      "result": "SUCCESS"
-     },
-     "request": {},
-     "uuid": "2a992f80-d1ad-4f62-900e-8c68bb72a21b",
-     "severity": "INFO",
-     "displayMessage": "Create API token",
-     "actor": {
-      "alternateId": "lemmy@heavymetals.io",
-      "displayName": "Lemmy Kilmster",
-      "id": "00u3q14ei6KUOm4Xi2p4",
-      "type": "User"
-     },
-     "target": [
-      {
-       "id": "00Tpki36zlWjhjQ1u2p4",
-       "type": "Token",
-       "alternateId": "unknown",
-       "displayName": "test_key",
-       "details": null
-      }
-     ]
-    }
-    ```
-
-    </details>
-
-8. Modify the severity function to return a "Low" event when the user is your own email or otherwise return a "High" event (Hint - you will have to use deep_get for this)
-
-    <details>
-    	<summary>Click To View Answer</summary>
-
-    ``` python
-    def severity(event):
-        if deep_get(event,"actor","alternateId") == "lemmy@heavymetals.io":
-            return "LOW"
-        return "HIGH"
-    
-    ```
-
-    </details>
-
-9. Test your changes using the unit test
-10. Save Changes
+ 
 
 ___________________________________________________
 
