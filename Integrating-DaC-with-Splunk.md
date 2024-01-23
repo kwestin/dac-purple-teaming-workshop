@@ -235,12 +235,13 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 
     ``` python
     
-  def severity(event):
-    if event.get("readOnly"):
-        return "MEDIUM"
-    return "HIGH"
+    def severity(event):
+        if event.get("readOnly"):
+          return "MEDIUM"
+        return "HIGH"
     
     ```
+
 
 6. Deploy your rule
 
