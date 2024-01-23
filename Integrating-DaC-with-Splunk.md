@@ -234,10 +234,12 @@ By utilzing a pre-packaged detection, we can easily modify an existing detection
 5. Modify the severity function so Read Only events are "Medium" severitty from the [templates page](https://github.com/panther-labs/panther-analysis/blob/master/templates/example_rule.py) or below:
 
     ``` python
+    
   def severity(event):
     if event.get("readOnly"):
         return "MEDIUM"
     return "HIGH"
+    
     ```
 
 6. Deploy your rule
