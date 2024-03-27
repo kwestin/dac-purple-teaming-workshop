@@ -70,7 +70,7 @@ Sample Okta Event - Failed Login:
 
 ___________________________________________________
 
-## Lab 2 - Data Onboarding, Packs & Detected Admin Console Access
+## Lab 2 - Detected Admin Console Access
 
 In this exercise, we will write a new detection using what we have learned. If we look at Okta's authentication logs, no indicator states that the user is an administrator. However, once an admin signs in, they are directed to the admin console, which Okta logs as a separate event.
 
