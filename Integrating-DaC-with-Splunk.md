@@ -51,8 +51,8 @@ Sample Okta Event - Failed Login:
     1. Under Rule Funtion write:
         - Import the deep_get function from the panther_base_helpers library `from panther_base_helpers import deep_get`
         - Return the event for a login and the event for a failed login result using the deep_get function `return event.get("eventType") == 'user.session.start' and deep_get(event, 'outcome', 'result') == "FAILURE"`
-    2. Under Unit Test:
-        - Create a Unit Test
+    2. Under Test -> Unit Test:
+        - Create a Unit Test by clicking "Add New"
         - Copy and paste the sample event from Okta above.
         - We will use this to _test_ our detection.
 8. The final detection should look something like this:
